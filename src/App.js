@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, CheckCircle } from 'lucide-react';
+import { Github, Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
 
 const skills = [
   { 
@@ -28,16 +28,18 @@ const projects = [
       "Testing of proprietary gateways and third-party tags",
       "End-to-end validation of KKM sensors integration",
       "Working with Jira Xray test management system"
-    ]
+    ],
+    ongoing: true
   },
   {
-    title: "HRMS Applications Testing",
+    title: "HRMS Application Testing",
     description: "Multi-platform testing of Human Resource Management System across web and mobile interfaces.",
     highlights: [
       "Cross-platform testing (iOS/Android/Web)",
       "GraphQL API validation",
       "AI/LLM feature testing for accuracy and performance"
-    ]
+    ],
+    ongoing: true
   },
   {
     title: "iGaming Platform QA",
@@ -46,7 +48,8 @@ const projects = [
       "End-to-end functional testing of casino platform",
       "Black box testing of slot machine games",
       "Python automation for data manipulation tasks"
-    ]
+    ],
+    ongoing: false
   }
 ];
 
@@ -68,17 +71,11 @@ export default function Portfolio() {
   }, []);
 
   const handleDownloadResume = () => {
-    // Create a link element
     const link = document.createElement('a');
-    // Set the href to the path of your PDF file in the public folder
     link.href = '/paul-wagner-resume.pdf';
-    // Set the download attribute with the desired filename
     link.download = 'paul-wagner-resume.pdf';
-    // Append the link to the body
     document.body.appendChild(link);
-    // Trigger the click event
     link.click();
-    // Remove the link from the body
     document.body.removeChild(link);
   };
 
@@ -99,10 +96,6 @@ export default function Portfolio() {
               Paul Wagner
             </h1>
             <div className="flex gap-4">
-              <a href="https://github.com/pulweizer" target="_blank" rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-gray-200 transition-all duration-300">
-                <Github className="w-6 h-6" />
-              </a>
               <a href="https://linkedin.com/in/silviuwagner" target="_blank" rel="noopener noreferrer" 
                 className="text-gray-400 hover:text-gray-200 transition-all duration-300">
                 <Linkedin className="w-6 h-6" />
@@ -119,19 +112,15 @@ export default function Portfolio() {
       <main className={`relative max-w-6xl mx-auto px-4 py-8 transition-all duration-700 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}>
+
         <section className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-100 mb-4">QA Engineer</h2>
           <p className="text-xl text-gray-400 mb-8">
             Technically adept QA Engineer with experience in manual testing, bug tracking, and API validation.
           </p>
           <div className="flex justify-center gap-4">
-            <a 
-              href="https://github.com/pulweizer" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300"
-            >
-              View Projects
+            <a href="mailto:silviu.wagner@gmail.com" className="fancy">
+              Open for Contract Work
             </a>
             <button 
               onClick={handleDownloadResume}
@@ -140,6 +129,7 @@ export default function Portfolio() {
               Download Resume
             </button>
           </div>
+          <p className="text-gray-400 mt-2 text-xs">Available for part-time or hourly engagements</p>
         </section>
 
         <section className="mb-16">
@@ -148,11 +138,17 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {skills.map((skillSet) => (
                 <div key={skillSet.category} className="hover:bg-gray-700 p-4 rounded-lg transition-all duration-300">
-                  <h4 className="font-semibold text-gray-100 mb-2">{skillSet.category}</h4>
+                  <h4 className="font-semibold text-gray-100 mb-2 flex items-center">
+                    {skillSet.category === "Testing" && <Code className="w-5 h-5 text-blue-500 mr-2" />}
+                    {skillSet.category === "Tools" && <Wrench className="w-5 h-5 text-blue-500 mr-2" />}
+                    {skillSet.category === "Technologies" && <Database className="w-5 h-5 text-blue-500 mr-2" />}
+                    {skillSet.category === "Scripting" && <Terminal className="w-5 h-5 text-blue-500 mr-2" />}
+                    {skillSet.category}
+                  </h4>
                   <ul className="space-y-1">
                     {skillSet.items.map((skill) => (
                       <li key={skill} className="text-gray-400 flex items-center">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                        <span className="w-2 h-0.5 bg-blue-500 mr-2"></span>
                         {skill}
                       </li>
                     ))}
@@ -168,12 +164,19 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {projects.map((project) => (
               <div key={project.title} className="bg-gray-800 p-6 rounded-lg shadow-lg border border-blue-500 hover:bg-gray-700 transition-all duration-300">
-                <h4 className="text-xl font-semibold text-gray-100 mb-3">{project.title}</h4>
+                <div className="flex items-center mb-3">
+                  <h4 className="text-xl font-semibold text-gray-100">{project.title}</h4>
+                  {project.ongoing && (
+                    <div className="glowing-button ml-2">
+                      <p className="ongoing">on going</p>
+                    </div>
+                  )}
+                </div>
                 <p className="text-gray-400 mb-4">{project.description}</p>
                 <ul className="space-y-2">
                   {project.highlights.map((highlight) => (
                     <li key={highlight} className="flex items-center text-gray-400">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <Check style={{ width: '16px', height: '16px' }} className="text-blue-500 mr-2" />
                       {highlight}
                     </li>
                   ))}
