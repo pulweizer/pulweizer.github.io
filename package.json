@@ -1,7 +1,7 @@
 {
   "name": "pulweizer.github.io",
   "version": "0.1.0",
-  "homepage": "https://pulweizer.github.io",
+  "homepage": "https://www.paulwagner.ro",
   "private": true,
   "dependencies": {
     "cra-template": "1.2.0",
