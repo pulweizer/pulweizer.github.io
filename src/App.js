@@ -56,6 +56,7 @@ const projects = [
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const [hoveredProject, setHoveredProject] = useState(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -183,6 +184,49 @@ export default function Portfolio() {
                 </ul>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h3 className="text-2xl font-bold text-gray-100 mb-6">Web Projects</h3>
+          <p className="text-gray-400 mb-6">
+            I explore web development to sharpen my skills and enhance my QA expertise through real-world projects. I’ve created presentation websites and e-commerce platforms for small businesses. Below are some of my web projects:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a 
+              href="https://augustin-machinery.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="relative block"
+              onMouseEnter={() => setHoveredProject('augustin')}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              <img src="/web-portfolio/augustin_top.jpg" alt="Augustin Machinery" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
+              {hoveredProject === 'augustin' && (
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 rounded-lg">
+                  <div className="text-gray-100 text-left animate-text p-4 bg-gray-800 bg-opacity-90 rounded-lg">
+                    <p className="mb-2">The website of Augustin Machinery is a presentation platform with e-commerce functionalities.</p>
+                    <p className="mb-4">The site combines the company's presentation functionality with e-commerce capabilities, allowing customers to efficiently explore and find the right machinery for their needs.</p>
+                    <h4 className="font-bold mb-2">Specifications</h4>
+                    <ul className="list-disc list-inside mb-4">
+                      <li>Presentation pages</li>
+                      <li>Contact form</li>
+                      <li>Product catalog</li>
+                      <li>Versatile menu</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </a>
+            <a href="https://marmuse.ro/" target="_blank" rel="noopener noreferrer" className="block">
+              <img src="/web-portfolio/marmuse_top.jpg" alt="Marmuse" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
+            </a>
+            <a href="http://casapianului.ro/" target="_blank" rel="noopener noreferrer" className="block">
+              <img src="/web-portfolio/casapianului_top.jpg" alt="Casa Pianului" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
+            </a>
+            <a href="https://luna-residence.ro/" target="_blank" rel="noopener noreferrer" className="block">
+              <img src="/web-portfolio/luna_top.jpg" alt="Luna Residence" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
+            </a>
           </div>
         </section>
 
