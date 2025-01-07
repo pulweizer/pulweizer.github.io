@@ -57,6 +57,8 @@ export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [hoveredProject, setHoveredProject] = useState(null);
+  const [clickedProject, setClickedProject] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -71,6 +73,16 @@ export default function Portfolio() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+  
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleDownloadResume = () => {
     const link = document.createElement('a');
     link.href = '/paul-wagner-resume.pdf';
@@ -78,6 +90,30 @@ export default function Portfolio() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleMouseEnter = (project) => {
+    if (!isMobile) {
+      setHoveredProject(project);
+    }
+  };
+  
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      setHoveredProject(null);
+    }
+  };
+  
+  const handleClick = (project, url) => {
+    if (isMobile) {
+      if (clickedProject === project) {
+        window.open(url, '_blank');
+      } else {
+        setClickedProject(project);
+      }
+    } else {
+      window.open(url, '_blank');
+    }
   };
 
   return (
@@ -198,13 +234,21 @@ export default function Portfolio() {
               target="_blank" 
               rel="noopener noreferrer" 
               className="relative block"
-              onMouseEnter={() => setHoveredProject('augustin')}
-              onMouseLeave={() => setHoveredProject(null)}
+              onMouseEnter={() => handleMouseEnter('augustin')}
+              onMouseLeave={handleMouseLeave}
+              onClick={(e) => {
+                e.preventDefault();
+                handleClick('augustin', 'https://augustin-machinery.com/');
+              }}
             >
-              <img src="/web-portfolio/augustin_top.jpg" alt="Augustin Machinery" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
-              {hoveredProject === 'augustin' && (
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 rounded-lg">
-                  <div className="text-gray-100 text-left animate-text p-4 bg-gray-800 bg-opacity-90 rounded-lg">
+              <img 
+                src="/web-portfolio/augustin_top.jpg" 
+                alt="Augustin Machinery" 
+                className={`w-full h-auto rounded-lg shadow-lg transition-all duration-300 ${hoveredProject === 'augustin' || clickedProject === 'augustin' ? 'blur-darken' : ''}`} 
+              />
+              {(hoveredProject === 'augustin' || clickedProject === 'augustin') && (
+                <div className="absolute inset-0 flex items-center justify-center p-4 rounded-lg">
+                  <div className="text-gray-100 text-left animate-text p-4">
                     <p className="mb-2">The website of Augustin Machinery is a presentation platform with e-commerce functionalities.</p>
                     <p className="mb-4">The site combines the company's presentation functionality with e-commerce capabilities, allowing customers to efficiently explore and find the right machinery for their needs.</p>
                     <h4 className="font-bold mb-2">Specifications</h4>
