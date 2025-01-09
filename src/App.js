@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
+import { trackPageView } from './analytics';
 
 const skills = [
   { 
@@ -81,6 +82,10 @@ export default function Portfolio() {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    trackPageView(window.location.pathname + window.location.search);
   }, []);
 
   const handleDownloadResume = () => {
