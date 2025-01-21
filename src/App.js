@@ -209,9 +209,9 @@ export default function Portfolio() {
                 <div className="flex items-center mb-3">
                   <h4 className="text-xl font-semibold text-gray-100">{project.title}</h4>
                   {project.ongoing && (
-                    <div className="glowing-button ml-2">
-                      <p className="ongoing">on going</p>
-                    </div>
+                  <div className="inline-flex items-center justify-center px-1 py-0.5 ml-2 bg-green-500/60 text-gray-100 rounded-sm shadow-sm animate-subtle-pulse ring-1 ring-green-400/30">
+                    <p className="text-[11px] uppercase tracking-tight font-medium" style={{textShadow: '0 0 8px rgba(0,0,0,0.2)'}}>on going</p>
+                  </div>
                   )}
                 </div>
                 <p className="text-gray-400 mb-4">{project.description}</p>
@@ -229,11 +229,57 @@ export default function Portfolio() {
         </section>
 
         <section className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-100 mb-6">Web Projects</h3>
+        <h3 className="text-2xl font-bold text-gray-100 mb-6">Web Projects</h3>
           <p className="text-gray-400 mb-6">
-            I explore web development to sharpen my skills and enhance my QA expertise through real-world projects. I’ve created presentation websites and e-commerce platforms for small businesses. Below are some of my web projects:
+            I explore web development to sharpen my skills and enhance my QA expertise through real-world projects. I've created presentation websites and e-commerce platforms for small businesses. Below are some of my web projects:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="my-6 p-6 bg-gradient-to-r from-gray-900 to-black border border-gray-700 rounded-lg text-gray-100 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <h3 className="text-3xl font-extrabold mb-4">Featured Web App Project</h3>
+            <h2 className="text-2xl font-bold inline-flex items-center gap-2 justify-center mb-2">
+              <span role="img" aria-label="gamepad">🎮</span> Thrift Games
+              <div className="relative inline-flex items-center justify-center px-2 py-0.5 ml-2 bg-yellow-500/80 text-gray-900 rounded-sm shadow-sm">
+                <p className="text-xs uppercase">wip</p>
+              </div>
+            </h2>
+            <p className="mb-4">
+              A modern web application for <span className="brush-highlight">finding</span> the best deals on <span className="brush-highlight">used video games</span> across online marketplaces.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="py-4">
+                <h4 className="font-bold mb-2">🚀 Features</h4>
+                <ul className="list-disc list-inside mb-4 line-list">
+                  <li>Real-time game search across eBay listings</li>
+                  <li>Detailed game information from RAWG API</li>
+                  <li>Price averages and <span className="line-through">market analytics</span></li>
+                  <li>Mobile-responsive design</li>
+                  <li>Gaming-inspired UI/UX elements</li>
+                  <li>Platform-specific <span className="line-through">filters</span> and sorting</li>
+                </ul>
+              </div>
+              <div className="py-4">
+                <h4 className="font-bold mb-2">💻 Tech Stack</h4>
+                <ul className="list-disc list-inside mb-4 line-list">
+                  <li>Frontend: Next.js 14, React, TypeScript</li>
+                  <li>Styling: Tailwind CSS</li>
+                  <li>APIs: RAWG, eBay</li>
+                  <li>Deployment: Vercel</li>
+                </ul>
+              </div>
+            </div>
+            <a
+              href="https://thrift.games"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 rounded-md border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group"
+            >
+              <span className="text-sm font-medium">Live Website:</span>
+              <span className="text-blue-400 font-mono text-sm">thrift.games</span>
+              <svg className="w-4 h-4 text-blue-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <a 
               href="https://augustin-machinery.com/" 
               target="_blank" 
@@ -254,8 +300,7 @@ export default function Portfolio() {
               {(hoveredProject === 'augustin' || clickedProject === 'augustin') && (
                 <div className="absolute inset-0 flex items-center justify-center p-4 rounded-lg">
                   <div className="text-gray-100 text-left animate-text p-4">
-                    <p className="mb-2">The website of Augustin Machinery is a presentation platform with e-commerce functionalities.</p>
-                    <p className="mb-4">The site combines the company's presentation functionality with e-commerce capabilities, allowing customers to efficiently explore and find the right machinery for their needs.</p>
+                    <p className="mb-2">Augustin Machinery is a presentation platform with e-commerce functionalities.</p>
                     <h4 className="font-bold mb-2">Specifications</h4>
                     <ul className="list-disc list-inside mb-4">
                       <li>Presentation pages</li>
