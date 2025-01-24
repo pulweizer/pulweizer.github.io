@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
+import { Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
 import { trackPageView } from './analytics';
 
 const skills = [
@@ -279,48 +279,91 @@ export default function Portfolio() {
               </svg>
             </a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <a 
-              href="https://augustin-machinery.com/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="relative block"
-              onMouseEnter={() => handleMouseEnter('augustin')}
-              onMouseLeave={handleMouseLeave}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick('augustin', 'https://augustin-machinery.com/');
-              }}
-            >
-              <img 
-                src="/web-portfolio/augustin_top.jpg" 
-                alt="Augustin Machinery" 
-                className={`w-full h-auto rounded-lg shadow-lg transition-all duration-300 ${hoveredProject === 'augustin' || clickedProject === 'augustin' ? 'blur-darken' : ''}`} 
-              />
-              {(hoveredProject === 'augustin' || clickedProject === 'augustin') && (
-                <div className="absolute inset-0 flex items-center justify-center p-4 rounded-lg">
-                  <div className="text-gray-100 text-left animate-text p-4">
-                    <p className="mb-2">Augustin Machinery is a presentation platform with e-commerce functionalities.</p>
-                    <h4 className="font-bold mb-2">Specifications</h4>
-                    <ul className="list-disc list-inside mb-4">
-                      <li>Presentation pages</li>
-                      <li>Contact form</li>
-                      <li>Product catalog</li>
-                      <li>Versatile menu</li>
-                    </ul>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                id: 'augustin',
+                url: 'https://augustin-machinery.com/',
+                img: '/web-portfolio/augustin_top.jpg',
+                logo: '/client-logo/augustin_logo.png',
+                alt: 'Augustin Machinery',
+                description: 'Ecommerce website creation'
+              },
+              {
+                id: 'marmuse',
+                url: 'https://marmuse.ro/',
+                img: '/web-portfolio/marmuse_top.jpg',
+                logo: '/client-logo/marmuse_logo.png',
+                alt: 'Marmuse',
+                description: 'Website design overhaul'
+              },
+              {
+                id: 'casapianului', 
+                url: 'http://casapianului.ro/',
+                img: '/web-portfolio/casapianului_top.jpg',
+                logo: '/client-logo/casapianului_logo.png',
+                alt: 'Casa Pianului',
+                description: 'Event booking platform'
+              },
+              {
+                id: 'luna',
+                url: 'https://luna-residence.ro/',
+                img: '/web-portfolio/luna_top.jpg',
+                logo: '/client-logo/luna_logo.png',
+                alt: 'Luna Residence', 
+                description: 'Hotel presentation website'
+              },
+              {
+                id: 'arcana',
+                url: 'https://librariaarcana.ro/',
+                img: '/web-portfolio/arcana_top.jpg',
+                logo: '/client-logo/arcana_logo.png',
+                alt: 'Libraria Arcana',
+                description: 'Presta to WooCommerce migration and ecommerce website creation'
+              },
+              {
+                id: 'textile',
+                url: 'https://textileconsultinghub.com/',
+                img: '/web-portfolio/textile_top.jpg',
+                logo: '/client-logo/textileconsulting_logo.png',
+                alt: 'Textile Consulting Hub',
+                description: 'Consulting booking platform with Zoom meeting link generation'
+              }
+            ].map((project) => (
+              <a
+                key={project.id}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative block"
+                onMouseEnter={() => handleMouseEnter(project.id)}
+                onMouseLeave={handleMouseLeave}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClick(project.id, project.url);
+                }}
+              >
+                <img
+                  src={project.img}
+                  alt={project.alt}
+                  className={`w-full h-auto rounded-lg shadow-lg transition-all duration-300 ${
+                    hoveredProject === project.id || clickedProject === project.id ? 'blur-darken' : ''
+                  }`}
+                />
+                {(hoveredProject === project.id || clickedProject === project.id) && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 rounded-lg">
+                    <img 
+                      src={project.logo}
+                      alt={`${project.alt} Logo`}
+                      className="max-w-[60%] max-h-[60%] object-contain animate-fade-in mb-4"
+                    />
+                    <p className="text-gray-100 text-sm font-medium text-center animate-fade-in">
+                      {project.description}
+                    </p>
                   </div>
-                </div>
-              )}
-            </a>
-            <a href="https://marmuse.ro/" target="_blank" rel="noopener noreferrer" className="block">
-              <img src="/web-portfolio/marmuse_top.jpg" alt="Marmuse" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
-            </a>
-            <a href="http://casapianului.ro/" target="_blank" rel="noopener noreferrer" className="block">
-              <img src="/web-portfolio/casapianului_top.jpg" alt="Casa Pianului" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
-            </a>
-            <a href="https://luna-residence.ro/" target="_blank" rel="noopener noreferrer" className="block">
-              <img src="/web-portfolio/luna_top.jpg" alt="Luna Residence" className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" />
-            </a>
+                )}
+              </a>
+            ))}
           </div>
         </section>
 
