@@ -155,23 +155,73 @@ export default function Portfolio() {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}>
 
-        <section className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-100 mb-4">QA Engineer</h2>
-          <p className="text-xl text-gray-400 mb-8">
-            Technically adept QA Engineer with experience in manual testing, bug tracking, and API validation.
-          </p>
-          <div className="flex justify-center gap-4">
-            <a href="mailto:silviu.wagner@gmail.com" className="fancy">
-              Open for Contract Work
-            </a>
-            <button 
-              onClick={handleDownloadResume}
-              className="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg hover:bg-blue-800 hover:text-white transition-all duration-300"
-            >
-              Download Resume
-            </button>
+        <section className="mb-16 relative overflow-hidden rounded-lg p-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-blue-900/5 to-purple-900/5 backdrop-blur-[2px]"></div>
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900 opacity-90"></div>
+            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-gray-900 to-transparent rounded-t-lg"></div>
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-900 to-transparent rounded-b-lg"></div>
+            <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-gray-900 to-transparent rounded-l-lg"></div>
+            <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-gray-900 to-transparent rounded-r-lg"></div>
+            <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-tl-lg"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-tr-lg"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-bl-lg"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-br-lg"></div>
           </div>
-          <p className="text-gray-400 mt-2 text-xs">Available for part-time or hourly engagements</p>
+          <div className="relative text-center">
+            <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-blue-100 mb-6">
+              QA Engineer
+            </h1>
+            
+            <div className="max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+                QA Engineer with hands-on experience in <span className="text-blue-400">RTLS systems</span> and
+                <span className="text-blue-400"> API testing</span>. Growing expertise in 
+                <span className="text-blue-400"> test automation</span> and committed to delivering quality software.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {[
+                  "RTLS Testing",
+                  "Manual Testing",
+                  "API Testing",
+                  "Test Documentation"
+                ].map((tag) => (
+                  <span key={tag} className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-full text-sm text-gray-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+                <a 
+                  href="mailto:silviu.wagner@gmail.com" 
+                  className="group relative px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg overflow-hidden shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  <span className="relative flex items-center gap-2 text-white font-medium">
+                    <Mail className="w-4 h-4" />
+                    Available for Contract Work
+                  </span>
+                </a>
+                
+                <button 
+                  onClick={handleDownloadResume}
+                  className="px-8 py-3 border-2 border-blue-500/30 hover:border-blue-500 text-blue-400 hover:text-blue-300 rounded-lg transition-all duration-300 flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download Resume
+                </button>
+              </div>
+              
+              <p className="text-gray-400 text-sm flex items-center justify-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Available for remote work and consulting
+              </p>
+            </div>
+          </div>
         </section>
 
         <section className="mb-16">
@@ -209,9 +259,11 @@ export default function Portfolio() {
                 <div className="flex items-center mb-3">
                   <h4 className="text-xl font-semibold text-gray-100">{project.title}</h4>
                   {project.ongoing && (
-                  <div className="inline-flex items-center justify-center px-1 py-0.5 ml-2 bg-green-500/60 text-gray-100 rounded-sm shadow-sm animate-subtle-pulse ring-1 ring-green-400/30">
-                    <p className="text-[11px] uppercase tracking-tight font-medium" style={{textShadow: '0 0 8px rgba(0,0,0,0.2)'}}>on going</p>
-                  </div>
+                    <div className="inline-flex items-center justify-center px-1 py-0.5 ml-2 bg-green-500/60 text-gray-100 rounded-sm shadow-sm animate-pulse ring-1 ring-green-400/30">
+                      <p className="text-[11px] uppercase tracking-tight font-medium" style={{textShadow: '0 0 8px rgba(0,0,0,0.2)'}}>
+                        ongoing
+                      </p>
+                    </div>
                   )}
                 </div>
                 <p className="text-gray-400 mb-4">{project.description}</p>
@@ -364,6 +416,87 @@ export default function Portfolio() {
                 )}
               </a>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-16 relative overflow-hidden rounded-lg p-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-blue-900/5 to-purple-900/5 backdrop-blur-[2px]"></div>
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900 opacity-90"></div>
+            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-gray-900 to-transparent rounded-t-lg"></div>
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-900 to-transparent rounded-b-lg"></div>
+            <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-gray-900 to-transparent rounded-l-lg"></div>
+            <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-gray-900 to-transparent rounded-r-lg"></div>
+            <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-tl-lg"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-tr-lg"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-bl-lg"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-radial from-gray-900 to-transparent rounded-br-lg"></div>
+          </div>
+          <div className="relative">
+            <h3 className="text-2xl font-bold text-gray-100 mb-2">Off-topic: Videography</h3>
+            <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-lg font-medium mb-8">
+              Capturing moments through the lens
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  id: 'ravers',
+                  title: 'Raver\'s Academy',
+                  url: 'https://vimeo.com/358487737',
+                  thumbnail: '/video-thumbnails/ravers.jpeg',
+                  description: 'Promotional video for hair styling academy',
+                  platform: 'vimeo'
+                },
+                {
+                  id: 'herculane',
+                  title: 'Herculane Project',
+                  url: 'https://vimeo.com/396113702',
+                  thumbnail: '/video-thumbnails/herculane.jpeg',
+                  description: 'Crowdfunding campaign video for a historical restoration project',
+                  platform: 'vimeo'
+                },
+                {
+                  id: 'aulaeu',
+                  title: 'Teatrul Aualeu',
+                  url: 'https://www.youtube.com/watch?v=YHD7afL0biw',
+                  thumbnail: '/video-thumbnails/aualeu.jpg',
+                  description: 'Promotional video and entire video production for a local theater',
+                  platform: 'youtube'
+                }
+              ].map((video) => (
+                <div 
+                  key={video.id}
+                  className="group relative rounded-xl overflow-hidden transform transition-all duration-500 hover:-translate-y-2"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className="w-full h-[300px] object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
+                    <div className="transform transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                      <h4 className="text-xl font-bold text-white mb-2">{video.title}</h4>
+                      <p className="text-gray-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {video.description}
+                      </p>
+                      <a
+                        href={video.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-2 text-sm font-medium text-white"
+                      >
+                        <span>Watch on {video.platform === 'vimeo' ? 'Vimeo' : 'YouTube'}</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
