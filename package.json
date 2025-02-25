@@ -4,6 +4,7 @@
   "homepage": "https://www.paulwagner.ro",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "cra-template": "1.2.0",
     "gh-pages": "^6.3.0",
     "lucide-react": "^0.469.0",

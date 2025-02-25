@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
 import { trackPageView } from './analytics';
+import QuoteModal from './QuoteModal';
 
 const skills = [
   { 
@@ -60,6 +61,7 @@ export default function Portfolio() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [clickedProject, setClickedProject] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -86,6 +88,18 @@ export default function Portfolio() {
 
   useEffect(() => {
     trackPageView(window.location.pathname + window.location.search);
+  }, []);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (window.location.pathname === '/request-quote') {
+        setIsQuoteModalOpen(true);
+      }
+    };
+
+    handleRouteChange();
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
   }, []);
 
   const handleDownloadResume = () => {
@@ -121,6 +135,11 @@ export default function Portfolio() {
     }
   };
 
+  const handleCloseQuoteModal = () => {
+    setIsQuoteModalOpen(false);
+    window.history.pushState({}, '', '/');
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div 
@@ -129,6 +148,11 @@ export default function Portfolio() {
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.1) 0%, rgba(17, 24, 39, 0) 50%)`,
           transition: 'all 0.3s ease'
         }}
+      />
+
+      <QuoteModal 
+        isOpen={isQuoteModalOpen} 
+        onClose={handleCloseQuoteModal} 
       />
 
       <header className="relative bg-gray-900/50 backdrop-blur-sm border-b border-gray-800/50 sticky top-0 z-50">
@@ -296,7 +320,15 @@ export default function Portfolio() {
         </section>
 
         <section id="web-projects" className="mb-16">
-        <h3 className="text-2xl font-bold text-gray-100 mb-6">Web Projects</h3>
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-2xl font-bold text-gray-100">Web Projects</h3>
+            <a
+              href="/request-quote"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 rounded-md border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group"
+            >
+              <span className="text-sm font-medium">Request Quote</span>
+            </a>
+          </div>
           <p className="text-gray-400 mb-6">
             I explore web development to sharpen my skills and enhance my QA expertise through real-world projects. I've created presentation websites and e-commerce platforms for small businesses. Below are some of my web projects:
           </p>
