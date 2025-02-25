@@ -322,12 +322,12 @@ export default function Portfolio() {
         <section id="web-projects" className="mb-16">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-2xl font-bold text-gray-100">Web Projects</h3>
-            <a
-              href="/request-quote"
+            <button
+              onClick={() => setIsQuoteModalOpen(true)}
               className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 rounded-md border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group"
             >
               <span className="text-sm font-medium">Request Quote</span>
-            </a>
+            </button>
           </div>
           <p className="text-gray-400 mb-6">
             I explore web development to sharpen my skills and enhance my QA expertise through real-world projects. I've created presentation websites and e-commerce platforms for small businesses. Below are some of my web projects:
