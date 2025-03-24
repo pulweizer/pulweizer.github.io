@@ -47,6 +47,10 @@ export default function QuoteModal({ isOpen, onClose }) {
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   useEffect(() => {
+    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
+  }, []);
+
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -112,8 +116,7 @@ export default function QuoteModal({ isOpen, onClose }) {
       await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
         process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        templateParams,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        templateParams
       );
 
       setSubmitStatus({
