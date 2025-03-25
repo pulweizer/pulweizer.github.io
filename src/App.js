@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Linkedin, Mail, Check, Code, Wrench, Terminal, Database } from 'lucide-react';
 import { trackPageView } from './analytics';
 import QuoteModal from './QuoteModal';
+import ContactForm from './ContactForm';
 
 const skills = [
   { 
@@ -548,30 +549,8 @@ export default function Portfolio() {
         </section>
 
         <section className="mb-16">
-          <h3 className="text-2xl font-bold text-gray-100 mb-6">Get in Touch</h3>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-blue-500">
-            <p className="text-gray-400 mb-6">
-              Interested in discussing QA opportunities or collaboration? Feel free to reach out!
-            </p>
-            <div className="flex gap-4">
-              <a 
-                href="mailto:silviu.wagner@gmail.com" 
-                className="flex items-center text-blue-400 hover:text-blue-300 transition-all duration-300"
-              >
-                <Mail className="w-5 h-5 mr-2" />
-                silviu.wagner@gmail.com
-              </a>
-              <a 
-                href="https://linkedin.com/in/silviuwagner" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center text-blue-400 hover:text-blue-300 transition-all duration-300"
-              >
-                <Linkedin className="w-5 h-5 mr-2" />
-                LinkedIn Profile
-              </a>
-            </div>
-          </div>
+          <h3 className="text-2xl font-bold text-gray-100 mb-6">Contact Me</h3>
+          <ContactForm />
         </section>
       </main>
 
