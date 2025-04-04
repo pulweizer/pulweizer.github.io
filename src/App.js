@@ -63,6 +63,7 @@ export default function Portfolio() {
   const [clickedProject, setClickedProject] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [imagesPreloaded, setImagesPreloaded] = useState({});
 
   useEffect(() => {
     setIsVisible(true);
@@ -101,6 +102,61 @@ export default function Portfolio() {
     handleRouteChange();
     window.addEventListener('popstate', handleRouteChange);
     return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  // Preload all portfolio item images
+  useEffect(() => {
+    const webProjects = [
+      {
+        id: 'augustin',
+        logo: '/client-logo/augustin_logo.png',
+      },
+      {
+        id: 'marmuse',
+        logo: '/client-logo/marmuse_logo.png',
+      },
+      {
+        id: 'casapianului', 
+        logo: '/client-logo/casapianului_logo.png',
+      },
+      {
+        id: 'luna',
+        logo: '/client-logo/luna_logo.png',
+      },
+      {
+        id: 'arcana',
+        logo: '/client-logo/arcana_logo.png',
+      },
+      {
+        id: 'textile',
+        logo: '/client-logo/textileconsulting_logo.png',
+      }
+    ];
+
+    const preloadImage = (src, id) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          setImagesPreloaded(prev => ({...prev, [id]: true}));
+          resolve();
+        };
+        img.onerror = () => {
+          // Still mark as preloaded if there's an error to avoid blocking
+          setImagesPreloaded(prev => ({...prev, [id]: true}));
+          resolve();
+        };
+      });
+    };
+
+    const preloadAllImages = async () => {
+      const preloadPromises = webProjects.map(project => 
+        preloadImage(project.logo, project.id)
+      );
+      await Promise.all(preloadPromises);
+    };
+
+    preloadAllImages();
   }, []);
 
   const handleDownloadResume = () => {
@@ -450,20 +506,110 @@ export default function Portfolio() {
                     hoveredProject === project.id || clickedProject === project.id ? 'blur-darken' : ''
                   }`}
                 />
-                {(hoveredProject === project.id || clickedProject === project.id) && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 rounded-lg">
+                <div className={`absolute inset-0 flex flex-col items-center justify-center p-4 rounded-lg transition-all duration-300 ${
+                  hoveredProject === project.id || clickedProject === project.id 
+                    ? 'opacity-100 visible' 
+                    : 'opacity-0 invisible'
+                }`}>
+                  {imagesPreloaded[project.id] ? (
                     <img 
                       src={project.logo}
                       alt={`${project.alt} Logo`}
-                      className="max-w-[60%] max-h-[60%] object-contain animate-fade-in mb-4"
+                      className="max-w-[60%] max-h-[60%] object-contain mb-4 transition-opacity duration-300"
                     />
-                    <p className="text-gray-100 text-sm font-medium text-center animate-fade-in">
-                      {project.description}
-                    </p>
-                  </div>
-                )}
+                  ) : (
+                    <div className="w-[60%] h-16 flex items-center justify-center mb-4">
+                      <div className="w-8 h-8 border-t-2 border-blue-400 rounded-full animate-spin"></div>
+                    </div>
+                  )}
+                  <p className={`text-gray-100 text-sm font-medium text-center transition-all duration-300 ${
+                    hoveredProject === project.id || clickedProject === project.id 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-2'
+                  }`}>
+                    {project.description}
+                  </p>
+                </div>
               </a>
             ))}
+          </div>
+          
+          <div className="mt-10">
+            {/* <h4 className="text-xl font-semibold text-gray-100 mb-6">Latest Projects</h4> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  id: 'fitee',
+                  url: 'https://fitee.co/',
+                  title: 'Fitee',
+                  description: 'Minimalist recipe website featuring protein-rich, low-calorie meals with nutritional information, designed for health-conscious users.',
+                  technologies: 'Next.js 15, React 19, TypeScript, Tailwind CSS, Supabase, Framer Motion',
+                  color: 'from-blue-500 to-green-500'
+                },
+                {
+                  id: 'ceci',
+                  url: 'https://ceci.ro/',
+                  title: 'Ceci',
+                  description: 'Art gallery e-commerce website featuring artwork browsing, shopping cart, checkout, and admin dashboard for content management.',
+                  technologies: 'Next.js, React, TypeScript, Tailwind CSS, Supabase, EmailJS, Framer Motion',
+                  color: 'from-purple-500 to-pink-500'
+                }
+              ].map((project) => (
+                <a
+                  key={project.id}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block"
+                  onMouseEnter={() => handleMouseEnter(project.id)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(project.id, project.url);
+                  }}
+                >
+                  <div className={`w-full h-auto rounded-lg shadow-lg transition-all duration-300 overflow-hidden bg-gradient-to-br ${project.color} ${
+                    hoveredProject === project.id || clickedProject === project.id ? 'scale-[0.98] shadow-xl' : ''
+                  }`}>
+                    <div className="h-full w-full backdrop-blur-sm p-6 flex flex-col justify-between">
+                      <div className="flex justify-between items-start">
+                        <h5 className="text-2xl font-bold text-white">{project.title}</h5>
+                        <div className="bg-white/20 backdrop-blur-md rounded-full px-3 py-1">
+                          <span className="text-xs font-medium text-white">New</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <div className="flex items-center mb-3">
+                          <div className="h-1 w-12 bg-white/70 rounded-full"></div>
+                        </div>
+                        <p className="text-white/90 mb-4 text-sm">
+                          {project.description}
+                        </p>
+                        
+                        <div className="mb-4">
+                          <h6 className="text-white/80 text-xs uppercase tracking-wider font-medium mb-2">Technologies</h6>
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies.split(', ').map((tech, index) => (
+                              <span key={index} className="text-xs bg-white/10 backdrop-blur-sm px-2 py-1 rounded-md text-white/90">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div className="inline-flex items-center gap-2 text-sm font-medium text-white/90 group">
+                          <span>View Website</span>
+                          <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -634,7 +780,7 @@ export default function Portfolio() {
               </p>
               <div className="flex items-center gap-6">
                 <span className="text-gray-600 text-xs flex items-center gap-1">
-                  Last updated: February 2024
+                  Last updated: April 2025
                 </span>
               </div>
             </div>
